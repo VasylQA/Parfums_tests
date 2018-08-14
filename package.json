@@ -1,0 +1,25 @@
+{
+  "name": "parfums-project",
+  "version": "1.0.0",
+  "description": "Project for Parfums site on nightwatch.js",
+  "author": "Vasyl",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VasylQA/parfums.ua.git"
+  },
+  "scripts": {
+    "test": "nightwatch"
+  },
+  "dependencies": {
+    "nightwatch": "0.9.19"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "e2e-tests",
+    "nightwatch"
+  ]
+}
