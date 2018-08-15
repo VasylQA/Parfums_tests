@@ -10,8 +10,18 @@ const commands = {
     return this
       .waitForElementVisible('@submitSearchButton', this.api.globals.tinyWait)
       .click('@submitSearchButton');
-  }
+  },
 
+  hoverOnPerfumeryCategoryLink: function(){
+    return this
+      .waitForElementVisible('@perfumeryCategoryLink', this.api.globals.tinyWait)
+      .moveToElement('@perfumeryCategoryLink', 10, 10);
+  },
+  clickSaleSubCategoryInPerfumeryCategory: function(){
+    return this
+      .waitForElementVisible('@saleSubCategoryLink', this.api.globals.tinyWait)
+      .click('@saleSubCategoryLink');
+  }
 };
 
 module.exports = {
@@ -23,6 +33,12 @@ module.exports = {
     },
     submitSearchButton: {
       selector: '.header__search--button.js-search-button'
+    },
+    perfumeryCategoryLink: {
+      selector: '.header__listlink.js-link-item[href="/category/parfums"]'
+    },
+    saleSubCategoryLink: {
+      selector: '.header__listlink.js-link-item[href="/markdowned/1/arrival_desc/20/category=433863"]'
     }
   }
 
