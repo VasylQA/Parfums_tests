@@ -9,8 +9,6 @@ module.exports = {
      */
     const homepage = browser.page.homePage();
 
-    browser.maximizeWindow();
-
     homepage.navigate();
 
     browser.maximizeWindow();
