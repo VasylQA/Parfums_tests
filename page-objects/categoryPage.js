@@ -7,6 +7,7 @@ const commands = {
   clickAddToCart: function (SKU) {
     return this
       .waitForElementVisible('@addToCartButton', this.api.globals.smallWait)
+      .moveToElement('@addToCartButton', 10, 10)
       .click('@addToCartButton');
   }
 };

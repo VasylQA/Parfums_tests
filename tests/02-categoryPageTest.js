@@ -1,7 +1,7 @@
 const categoryName = 'Распродажа';
 
 module.exports = {
-  'Open category page': function (browser) {
+ /* 'Open category page': function (browser) {
     const homepage = browser.page.homePage();
 
     homepage.navigate();
@@ -18,11 +18,11 @@ module.exports = {
       .assert.containsText('(//div[@class="breadcrumbs"]/ul/li/span)[2]', categoryName)
       .useCss()
   },
-
+*/
   'Add product to Cart': function (browser) {
     const homepage = browser.page.homePage();
     const category = browser.page.categoryPage();
-    const productNumber = '2';
+    const productNumber = 2;
     const SKU = '238426';
 
     homepage.navigate();
