@@ -1,10 +1,10 @@
 const commands = {
-  hoverOnProduct: function (productNumber) {
+  hoverOnProduct: function () {
     return this
       .waitForElementVisible('@productArea', this.api.globals.smallWait)
       .moveToElement('@productArea', 10, 10);
   },
-  clickAddToCart: function (SKU) {
+  clickAddToCart: function () {
     return this
       .waitForElementVisible('@addToCartButton', this.api.globals.smallWait)
       .moveToElement('@addToCartButton', 10, 10)
@@ -16,10 +16,10 @@ module.exports = {
   commands: [commands],
   elements: {
     addToCartButton: {
-      selector: `.add-to-cart.product__addtocart[data-sku="${this.SKU}]`
+      selector: `.add-to-cart.product__addtocart[data-sku="238426"]`
     },
     productArea: {
-      selector: `(//div[@class="product__content"])[${this.productNumber}]`,
+      selector: `(//div[@class="product__content"])[2]`,
       locateStrategy: 'xpath'
     }
   }
