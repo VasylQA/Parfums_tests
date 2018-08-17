@@ -16,10 +16,10 @@ module.exports = {
   commands: [commands],
   elements: {
     addToCartButton: {
-      selector: `.add-to-cart.product__addtocart[data-sku="238426"]`
+      selector: `.add-to-cart.product__addtocart[data-sku="238426"]`  //захардкоженный СКУ, не надо так
     },
     productArea: {
-      selector: `(//div[@class="product__content"])[2]`,
+      selector: `(//div[@class="product__content"])[2]`, //
       locateStrategy: 'xpath'
     }
   }

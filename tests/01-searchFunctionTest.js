@@ -3,32 +3,30 @@ const searchRequest1 = 'Armani';
 
 module.exports = {
   'Check if Search results match to search request': function (browser) {
-    /*
-    We're dealing with asynchronous programming language, you 'for' code would be executed prior to tests code
-    You need to wrap it in .perform() or .useCss() or other function and run it as callback
-     */
+
     const homepage = browser.page.homePage();
 
-      homepage.navigate();
+    homepage.navigate();
 
-     browser.maximizeWindow();
+    browser.maximizeWindow();
 
- homepage
-   .enterSearchRequest(searchRequest)
+    homepage
+      .enterSearchRequest(searchRequest)
       .clickSubmitSearchButton();
 
     browser.perform(function() {
-    browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
+      browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
         for (let i = 1; i <= result.value.length; i++) {
-       browser
-       .useXpath()
-       .waitForElementVisible(`(//a[@class="product__link"])[${i}]`, browser.globals.smallWait)
-         .moveToElement(`(//a[@class="product__link"])[${i}]`, 10, 10)
-       .assert.containsText(`(//a[@class="product__link"])[${i}]`, searchRequest || `(//a[@class="product__link"])[${i}]`, searchRequest1);
-      }
-       browser.useCss();
-    });
+          browser
+            .useXpath()
+            .waitForElementVisible(`(//a[@class="product__link"])[${i}]`, browser.globals.smallWait)
+            .moveToElement(`(//a[@class="product__link"])[${i}]`, 10, 10)
+            .assert.containsText(`(//a[@class="product__link"])[${i}]`, searchRequest || `(//a[@class="product__link"])[${i}]`, searchRequest1);
+          //searchRequest.charAt(0).toUpperCase() + searchRequest.slice(1)
+        }
+        browser.useCss();
       });
+    });
   },
 
   'Check if all products have images': function (browser) {
@@ -44,16 +42,16 @@ module.exports = {
       .clickSubmitSearchButton();
 
     browser.perform(function() {
-        browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
-          for (let i = 1; i <= result.value.length; i++) {
-            browser
-              .useXpath()
-              .waitForElementVisible(`(//img[@class="product__image"])[${i}]`, browser.globals.smallWait)
-              .moveToElement(`(//img[@class="product__image"])[${i}]`,10,10)
-              .assert.attributeContains(`(//img[@class="product__image"])[${i}]`, 'src', '/upload/products/');
-      }
-    });
-  })
+      browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
+        for (let i = 1; i <= result.value.length; i++) {
+          browser
+            .useXpath()
+            .waitForElementVisible(`(//img[@class="product__image"])[${i}]`, browser.globals.smallWait)
+            .moveToElement(`(//img[@class="product__image"])[${i}]`,10,10)
+            .assert.attributeContains(`(//img[@class="product__image"])[${i}]`, 'src', '/upload/products/');
+        }
+      });
+    })
   },
 
   'Check if number of products is 20': function (browser) {
@@ -66,9 +64,9 @@ module.exports = {
 
     browser
       .elements('xpath', '//span[@class="product__link-desc"]', function (result) {
-       browser.assert.equal(result.value.length, 20)
+        browser.assert.equal(result.value.length, 20)
       })
-    .expect.element('//span[@class="product__link-desc"]').to.be.present.before(browser.globals.smallWait);
+      .expect.element('//span[@class="product__link-desc"]').to.be.present.before(browser.globals.smallWait);
     browser.end();
   }
 
