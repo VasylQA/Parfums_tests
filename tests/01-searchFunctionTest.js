@@ -20,13 +20,16 @@ module.exports = {
       .clickSubmitSearchButton();
 
     browser.perform(()=> {
-      for (let i = 0; i<20; i++) {
-        browser
-          .useXpath()
-          .waitForElementVisible('//span[@class="product__link-desc"]', browser.globals.smallWait)
-          .moveToElement('//span[@class="product__link-desc"]',10,10)
-          .assert.containsText("//span[@class=\"product__link-desc\"]", searchRequestUpperCase || searchRequest);
-      }
+      browser.elements('xpath', '//span[@class="product__link-desc"]', (results)=>{
+        for (let i = 0; i<results.value.length; i++) {
+          browser
+            .useXpath()
+            .waitForElementVisible(`(//span[@class="product__link-desc"])[${i}]`, browser.globals.smallWait)
+            .moveToElement(`(//span[@class="product__link-desc"])[${i}]`,10,10)
+            .assert.containsText(`(//span[@class="product__link-desc"])[${i}]`, searchRequestUpperCase || searchRequest)
+            .useCss();
+        }
+      })
     });
    // browser.end(); - closes the session. this need to be done after ALL tests
   },
@@ -40,6 +43,8 @@ module.exports = {
       .clickSubmitSearchButton();
 
     browser.perform(()=> {
+
+
       for (let i = 0; i<20; i++) {
         browser
           .useCss()
@@ -68,7 +73,7 @@ module.exports = {
           n = n + 1;
         return n;*/
 
-       browser.assert.equal(result.value.length, 20)
+       browser.assert.equal(result.value.length, 20, 'Quantity of products is correct')
       });
 
    // browser.assert.value(n, 20);
