@@ -27,7 +27,9 @@ module.exports = {
 
     homepage.navigate();
 
-    browser.maximizeWindow();
+    browser
+      .maximizeWindow()
+      .pause(3000);
 
     homepage
       .hoverOnPerfumeryCategoryLink()

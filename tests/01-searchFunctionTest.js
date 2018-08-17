@@ -2,6 +2,7 @@ const searchRequest = 'armani';
 const searchRequest1 = 'Armani';
 
 module.exports = {
+  '@disabled': true,
   'Check if Search results match to search request': function (browser) {
 
     const homepage = browser.page.homePage();
@@ -14,6 +15,8 @@ module.exports = {
       .enterSearchRequest(searchRequest)
       .clickSubmitSearchButton();
 
+    // где ожидание?
+
     browser.perform(function() {
       browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
         for (let i = 1; i <= result.value.length; i++) {
@@ -21,8 +24,8 @@ module.exports = {
             .useXpath()
             .waitForElementVisible(`(//a[@class="product__link"])[${i}]`, browser.globals.smallWait)
             .moveToElement(`(//a[@class="product__link"])[${i}]`, 10, 10)
-            .assert.containsText(`(//a[@class="product__link"])[${i}]`, searchRequest || `(//a[@class="product__link"])[${i}]`, searchRequest1);
-          //searchRequest.charAt(0).toUpperCase() + searchRequest.slice(1)
+            .assert.containsText(`(//a[@class="product__link"])[${i}]`, searchRequest || `(//a[@class="product__link"])[${i}]`, searchRequest1); // не работает
+          // searchRequest.charAt(0).toUpperCase() + searchRequest.slice(1) -- трансформация для серч реквеста
         }
         browser.useCss();
       });
@@ -40,6 +43,9 @@ module.exports = {
     homepage
       .enterSearchRequest(searchRequest)
       .clickSubmitSearchButton();
+
+    //где тут ожидание?
+
 
     browser.perform(function() {
       browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
