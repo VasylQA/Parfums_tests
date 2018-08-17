@@ -2,7 +2,6 @@ const searchRequest = 'armani';
 const searchRequest1 = 'Armani';
 
 module.exports = {
-  '@disabled': true,
   'Check if Search results match to search request': function (browser) {
 
     const homepage = browser.page.homePage();
