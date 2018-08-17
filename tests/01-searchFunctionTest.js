@@ -1,5 +1,5 @@
-const searchRequest = 'помада';
-const searchRequestUpperCase = 'Помада';
+const searchRequest = 'armani';
+const searchRequest1 = 'Armani';
 
 module.exports = {
   'Check if Search results match to search request': function (browser) {
@@ -9,75 +9,66 @@ module.exports = {
      */
     const homepage = browser.page.homePage();
 
-    browser.maximizeWindow();
+      homepage.navigate();
 
-    homepage.navigate();
+     browser.maximizeWindow();
 
-    browser.maximizeWindow();
-
-    homepage
-      .enterSearchRequest(searchRequest)
+ homepage
+   .enterSearchRequest(searchRequest)
       .clickSubmitSearchButton();
 
-    browser.perform(()=> {
-      browser.elements('xpath', '//span[@class="product__link-desc"]', (results)=>{
-        for (let i = 0; i<results.value.length; i++) {
-          browser
-            .useXpath()
-            .waitForElementVisible(`(//span[@class="product__link-desc"])[${i}]`, browser.globals.smallWait)
-            .moveToElement(`(//span[@class="product__link-desc"])[${i}]`,10,10)
-            .assert.containsText(`(//span[@class="product__link-desc"])[${i}]`, searchRequestUpperCase || searchRequest)
-            .useCss();
-        }
-      })
+    browser.perform(function() {
+    browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
+        for (let i = 1; i <= result.value.length; i++) {
+       browser
+       .useXpath()
+       .waitForElementVisible(`(//a[@class="product__link"])[${i}]`, browser.globals.smallWait)
+         .moveToElement(`(//a[@class="product__link"])[${i}]`, 10, 10)
+       .assert.containsText(`(//a[@class="product__link"])[${i}]`, searchRequest || `(//a[@class="product__link"])[${i}]`, searchRequest1);
+      }
+       browser.useCss();
     });
-   // browser.end(); - closes the session. this need to be done after ALL tests
+      });
   },
 
-  'Check if all products have images': function (browser) { // is not working correctly
+  'Check if all products have images': function (browser) {
     const homepage = browser.page.homePage();
 
     homepage
-      .navigate()
+      .navigate();
+
+    browser.maximizeWindow();
+
+    homepage
       .enterSearchRequest(searchRequest)
       .clickSubmitSearchButton();
 
-    browser.perform(()=> {
-
-
-      for (let i = 0; i<20; i++) {
-        browser
-          .useCss()
-          .waitForElementVisible('.product__image', browser.globals.smallWait)
-          .moveToElement('.product__image',10,10)
-          .assert.elementPresent('.product__image');
+    browser.perform(function() {
+        browser.elements('xpath', '//span[@class="product__link-desc"]', function (result) {
+          for (let i = 1; i <= result.value.length; i++) {
+            browser
+              .useXpath()
+              .waitForElementVisible(`(//img[@class="product__image"])[${i}]`, browser.globals.smallWait)
+              .moveToElement(`(//img[@class="product__image"])[${i}]`,10,10)
+              .assert.attributeContains(`(//img[@class="product__image"])[${i}]`, 'src', '/upload/products/');
       }
     });
-   // browser.end();
+  })
   },
 
-  'Check if number of products is 20': function (browser) {  // is not working at all
+  'Check if number of products is 20': function (browser) {
     const homepage = browser.page.homePage();
-
 
     homepage
       .navigate()
       .enterSearchRequest(searchRequest)
       .clickSubmitSearchButton();
-
-    //let n = 0;  //почитай про переменную let и ее свойства
 
     browser
       .elements('xpath', '//span[@class="product__link-desc"]', function (result) {
-       /* for (let i = 0; i<result.length; i++) // зачем тут цикл, если можно просто взять длинну массива? О_о
-          n = n + 1;
-        return n;*/
-
-       browser.assert.equal(result.value.length, 20, 'Quantity of products is correct')
-      });
-
-   // browser.assert.value(n, 20);
-
+       browser.assert.equal(result.value.length, 20)
+      })
+    .expect.element('//span[@class="product__link-desc"]').to.be.present.before(browser.globals.smallWait);
     browser.end();
   }
 
