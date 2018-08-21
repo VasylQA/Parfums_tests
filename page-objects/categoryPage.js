@@ -1,14 +1,17 @@
 const commands = {
-  hoverOnProduct: function () {
+  hoverOnProduct: function (productNumber) {
     return this
       .waitForElementVisible('@productArea', this.api.globals.smallWait)
-      .moveToElement('@productArea', 10, 10);
+      .api.useXpath()
+      .moveToElement(`(//div[@class="product__content"])[${productNumber}]`, 10, 10)
+      .useCss();
   },
-  clickAddToCart: function () {
+
+  clickAddToCart: function (SKU) {
     return this
-      .waitForElementVisible('@addToCartButton', this.api.globals.smallWait)
-      .moveToElement('@addToCartButton', 10, 10)
-      .click('@addToCartButton');
+      .waitForElementVisible(`.add-to-cart.product__addtocart[data-sku="${SKU}"]`, this.api.globals.smallWait)
+      .moveToElement(`.add-to-cart.product__addtocart[data-sku="${SKU}"]`, 10, 10)
+      .click(`.add-to-cart.product__addtocart[data-sku="${SKU}"]`);
   }
 };
 
@@ -16,10 +19,10 @@ module.exports = {
   commands: [commands],
   elements: {
     addToCartButton: {
-      selector: `.add-to-cart.product__addtocart[data-sku="238426"]`
+      selector: `.add-to-cart.product__addtocart`
     },
     productArea: {
-      selector: `(//div[@class="product__content"])[2]`,
+      selector: `(//div[@class="product__content"])`,
       locateStrategy: 'xpath'
     }
   }
